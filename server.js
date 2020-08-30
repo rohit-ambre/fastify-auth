@@ -1,4 +1,6 @@
-const fastify = require('fastify')({ logger: true })
+const fastify = require('fastify')({ logger: true });
+
+const PORT = process.env.PORT || 3003;
 
 // Declare a route
 fastify.get('/', async (request, reply) => {
@@ -13,7 +15,7 @@ fastify.post('/', async (request, reply) => {
 // Run the server!
 const start = async () => {
   try {
-    await fastify.listen(3000)
+    await fastify.listen(PORT)
     fastify.log.info(`server listening on ${fastify.server.address().port}`)
   } catch (err) {
     fastify.log.error(err)
