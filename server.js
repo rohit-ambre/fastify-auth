@@ -1,16 +1,11 @@
 const fastify = require('fastify')({ logger: true });
 require('dotenv').config();
 
+const apiRoutes = require('./src/routes');
+
 const PORT = process.env.PORT || 3003;
 
-// Declare a route
-fastify.get('/', async (request, reply) => {
-  return { hello: 'world' };
-});
-
-fastify.post('/', async (request, reply) => {
-  return { hello: 'world' };
-});
+fastify.register(apiRoutes, { prefix: '/api' })
 
 // Run the server!
 const start = async () => {
