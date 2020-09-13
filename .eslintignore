@@ -1,0 +1,16 @@
+# Scipt files
+bin/
+
+# Dependency directories
+node_modules/
+
+# Public files
+public/
+
+# sequelize migrations and seeds
+db/
+
+# ignored JSON files as they are not linted by ESlint
+package.json
+package-lock.json
+*.json
