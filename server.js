@@ -5,7 +5,7 @@ const apiRoutes = require('./src/routes');
 
 const PORT = process.env.PORT || 3003;
 
-fastify.register(apiRoutes, { prefix: '/api' })
+fastify.register(apiRoutes, { prefix: '/api' });
 
 // Run the server!
 const start = async () => {
@@ -16,5 +16,5 @@ const start = async () => {
     fastify.log.error(err);
     process.exit(1);
   }
-}
+};
 start();
