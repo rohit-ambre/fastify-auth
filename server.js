@@ -29,4 +29,12 @@ const start = async () => {
     process.exit(1);
   }
 };
+
+process.on('SIGINT', () => {
+  fastify.log.warn('SIGINT RECEIVED. Shutting down gracefully');
+  fastify.close(() => {
+    fastify.log.info('💥 Process terminated!');
+  });
+});
+
 start();
