@@ -6,7 +6,6 @@ const apiRoutes = require('./src/routes');
 
 const PORT = process.env.PORT || 3003;
 const MONGO_CONN = process.env.MONGO_URI;
-fastify.register(apiRoutes, { prefix: '/api' });
 
 // Mongo connection
 mongoose
@@ -17,6 +16,8 @@ mongoose
   .catch((err) => {
     fastify.log.error(`Error in mongo connection: ${err}`);
   });
+
+fastify.register(apiRoutes, { prefix: '/api' });
 
 // Run the server!
 const start = async () => {
