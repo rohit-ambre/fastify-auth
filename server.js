@@ -9,7 +9,12 @@ const MONGO_CONN = process.env.MONGO_URI;
 
 // Mongo connection
 mongoose
-  .connect(MONGO_CONN, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(MONGO_CONN, {
+    // https://mongoosejs.com/docs/deprecations.html
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  })
   .then(() => {
     fastify.log.info('Mongo connected succesfully');
   })
