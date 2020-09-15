@@ -12,6 +12,7 @@
   "rules": {
     "prettier/prettier": ["warn"],
     "func-names": "off",
-    "prefer-arrow-callback": "off"
+    "prefer-arrow-callback": "off",
+    "new-cap":"off"
   }
 }
