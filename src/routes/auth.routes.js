@@ -1,14 +1,6 @@
-const User = require('../models/user.model');
+const { signup } = require('../controllers/auth.controller');
 
 module.exports = function (fastify, opts, done) {
-  fastify.post('/signup', (req, rpl) => {
-    const user = new User(req.body);
-    user.save((err, newUser) => {
-      if (err) {
-        fastify.log.error(err);
-      }
-      rpl.code(200).send(newUser);
-    });
-  });
+  fastify.post('/signup', signup);
   done();
 };
