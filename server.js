@@ -22,6 +22,7 @@ mongoose
     fastify.log.error(`Error in mongo connection: ${err}`);
   });
 
+// API routes
 fastify.register(apiRoutes, { prefix: '/api' });
 
 // Run the server!
