@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema(
   {
@@ -23,6 +24,29 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+/**
+ * encrypt password before save
+ */
+userSchema.pre('save', function (next) {
+  const user = this;
+  // don't rehash if it's an old user
+  if (!user.isModified || !user.isNew) {
+    next();
+  } else {
+    bcrypt.hash(
+      user.password,
+      parseInt(process.env.SALT, 10),
+      (err, hashed) => {
+        if (err) {
+          next(err);
+        }
+        user.password = hashed;
+        next();
+      }
+    );
+  }
+});
 
 /**
  * Checks whether user with same unique fiels already exist or not

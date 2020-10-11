@@ -14,6 +14,7 @@
   "author": "Rohit Ambre",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "fastify": "^3.3.0",
     "mongoose": "^5.10.2"
