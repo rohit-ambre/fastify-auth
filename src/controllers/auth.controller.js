@@ -1,9 +1,10 @@
+const JWT = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 
 const signup = (req, rpl) => {
   User.findOneUser(req.body.email, (err, data) => {
     if (err) {
-      console.log(err);
       rpl.code(500).send({
         staus: false,
         data: null,
@@ -31,6 +32,51 @@ const signup = (req, rpl) => {
   });
 };
 
+const login = (req, rpl) => {
+  User.findOneUser(req.body.email, (error, user) => {
+    if (error) {
+      rpl.code(500).send({
+        staus: false,
+        data: null,
+        error,
+        message: 'server error occurred'
+      });
+    }
+    if (user) {
+      const match = bcrypt.compareSync(req.body.password, user.password);
+      if (!match) {
+        rpl.status(200).send({
+          status: false,
+          data: null,
+          error: null,
+          message: 'Password does not match'
+        });
+      }
+      const token = JWT.sign({ userId: user.id }, process.env.JWT_SECRET, {
+        expiresIn: '15m'
+      });
+
+      rpl.status(200).send({
+        status: true,
+        error: null,
+        message: 'User logged in successfully',
+        data: {
+          user,
+          token
+        }
+      });
+    } else {
+      rpl.code(200).send({
+        status: false,
+        error: null,
+        data: null,
+        message: 'user does not exist'
+      });
+    }
+  });
+};
+
 module.exports = {
-  signup
+  signup,
+  login
 };
