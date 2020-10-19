@@ -1,6 +1,9 @@
 /* eslint-disable consistent-return */
 const JWT = require('jsonwebtoken');
 
+/**
+ * middleware to validate JWT token
+ */
 const ValidateJWT = (req, rpl, next) => {
   const token = req.headers['x-access-token'] || req.headers.authorization;
 
