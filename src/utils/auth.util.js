@@ -23,6 +23,11 @@ const ValidateJWT = (req, rpl, next) => {
   });
 };
 
+/**
+ * creates token with passed payload
+ * @param {object} payload object for token data
+ * @returns token string
+ */
 const createToken = (payload) => {
   const token = JWT.sign(payload, process.env.JWT_SECRET, {
     expiresIn: '15m'
