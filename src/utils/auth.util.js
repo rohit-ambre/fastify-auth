@@ -23,6 +23,14 @@ const ValidateJWT = (req, rpl, next) => {
   });
 };
 
+const createToken = (payload) => {
+  const token = JWT.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: '15m'
+  });
+  return token;
+}
+
 module.exports = {
-  ValidateJWT
+  ValidateJWT,
+  createToken
 };

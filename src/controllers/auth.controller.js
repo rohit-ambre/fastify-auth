@@ -1,6 +1,6 @@
-const JWT = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
+const { createToken } = require('../utils/auth.util');
 
 const signup = (req, rpl) => {
   User.findOneUser(req.body.email, (err, data) => {
@@ -52,9 +52,10 @@ const login = (req, rpl) => {
           message: 'Password does not match'
         });
       }
-      const token = JWT.sign({ userId: user.id }, process.env.JWT_SECRET, {
-        expiresIn: '15m'
-      });
+      const payload = {
+        userId: user.id
+      };
+      const token = createToken(payload);
 
       rpl.status(200).send({
         status: true,
